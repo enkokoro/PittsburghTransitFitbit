@@ -1,0 +1,56 @@
+<svg>
+  <!-- Define a reusable tile to display a bus -->
+  <symbol id="tile-bus" focusable="false" pointer-events="visible"
+  system-events="all">
+    <rect id="bus-background" height="100%" />
+
+    <!-- line0: bus stop -->
+    <text id="stpnm" font-size="20" x="5" y="40" fill="white">Stop</text>
+    
+    <!-- line1: time in minutes and bus route -->
+    <text id="rt" font-size="20" x="100%-60" y="78" fill="white">RT</text>
+    <text id="tmrem"  x="5"   y="78" font-size="20" fill="white">42 min</text>
+
+    
+    <rect id="tile-divider-bottom" height="2" />
+  </symbol>
+
+  <textarea id="status" class="status">status message to be displayed
+  here</textarea>
+
+  <use id="busList" href="#tile-list" height="100%" width="100%">
+    <var id="reorder-enabled" value="0"/>
+    <var id="separator-height-bottom" value="2"/>
+
+    <use id="bus-0" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-1" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-2" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-3" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-4" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-5" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-6" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-7" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-8" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+    <use id="bus-9" href="#tile-list-item" class="item">
+      <use href="#tile-bus" />
+    </use>
+  </use>
+</svg>

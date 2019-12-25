@@ -1,0 +1,28 @@
+{
+  "fitbit": {
+    "appUUID": "0bef4ee2-9244-43b8-be41-7877ea894ed9",
+    "appType": "app",
+    "appDisplayName": "Pittsburgh Transit",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#607d8b",
+    "requestedPermissions": [
+      "access_location",
+      "access_internet"
+    ],
+    "buildTargets": [
+      "higgs",
+      "meson",
+      "gemini",
+      "mira"
+    ],
+    "i18n": {
+      "en": {
+        "name": "Pittsburgh Transit"
+      }
+    },
+    "defaultLanguage": "en-US"
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~4.1.0"
+  }
+}
