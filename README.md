@@ -1,4 +1,4 @@
-# PittsburghTransitFitbit
+# Pittsburgh Transit on Fitbit
 Transit-like app for Fitbit
 
 Adapted from https://github.com/Fitbit/sdk-bart
