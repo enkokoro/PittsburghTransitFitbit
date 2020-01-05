@@ -3,7 +3,7 @@ export function PittAPI(apiKey) {
     this.apiKey = apiKey;
   }
   else {
-    // Default key for open public access.
+    // key for access
     this.apiKey = "EDdRNyfJLv9YV7ZqGibpkAE6L";
   }
 };
@@ -74,10 +74,46 @@ PittAPI.prototype.realTimeDepartures = function(origin, routes) {
         };
         buses.push(d);
       });
+      let position;
+      try{
+        position = getLocation();
+      }catch{
+        position = null;
+      }
+      
+      let gpsurl = "https://realtime.portauthority.org/bustime/api/v3/getstops?";
+      gpsurl += "key=" + self.apiKey;
+      //gpsurl += "&stpid=" + origin;
+      gpsurl += "&rtpidatafeed=Port%20Authority%20Bus";
+      gpsurl += "&format=json";
       
       // Sort departures
-      buses.sort( (a,b) => { if (a.stpid == b.stpid) {return (a.minutes - b.minutes);}
-                             else{return (a.stpid-b.stpid);   }} );
+      buses.sort( (a,b) => { 
+        // for same stop, order by minutes
+        if (a.stpid == b.stpid) {
+          return (a.minutes - b.minutes);
+        }
+        // between different stop, order by distance (GPS)
+        else{
+          // if cannot get position, order by stop id
+          if(position == null){
+            return (a.stpid-b.stpid);  
+          }
+          else{
+            let stopinfo_a = fetch(gpsurl + "&stpid="+a.stpid).json();
+            let stopinfo_b = fetch(gpsurl + "&stpid="+b.stpid).json();
+            console.log(stopinfo_a);
+            console.log(stopinfo_b);
+            let a_lat = stopinfo_a["bustime-response"]["stops"][0].lat - position.coords.latitude;
+            let a_lon = stopinfo_a["bustime-response"]["stops"][0].lon - position.coords.longitude;
+            let b_lat = stopinfo_b["bustime-response"]["stops"][0].lat - position.coords.latitude;
+            let b_lon = stopinfo_b["bustime-response"]["stops"][0].lon - position.coords.longitude;
+            let dist_a = Math.sqrt(a_lat*a_lat + a_lon*a_lon);
+            let dist_b = Math.sqrt(b_lat*b_lat + b_lon*b_lon);
+            return (dist_a - dist_b);
+          }
+        }
+      } );
       
       limitResponses(buses, 3);
       

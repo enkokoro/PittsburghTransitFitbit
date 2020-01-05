@@ -4,7 +4,7 @@ import { geolocation } from "geolocation";
 import { settingsStorage } from "settings";
 
 import { PittAPI } from "./pitt.js"
-import { STOPS, FAVORITE_STOP_SETTING, ROUTES } from "../common/globals.js";
+import { STOPS, FAVORITE_ROUTE_SETTING, FAVORITE_STOP_SETTING, ROUTES } from "../common/globals.js";
 
 settingsStorage.onchange = function(evt) {
   sendPittSchedule();
@@ -40,35 +40,15 @@ function getLocation(){
 }
 
 
-function getNearestStops(){
-  //let position = getLocation();
-  
-  // use favorite stops if cannot use gps
-  //if(position == null){ 
-    return settingsStorage.getItem(FAVORITE_STOP_SETTING);
-  //}
-  
-  /*else{
-    let s, s1, s2;
-    let min_dist1, min_dist2;
-    min_dist1 = -1;
-    min_dist2 = -1;
-    for(s in STOPS){
-      
-    }
-   
-  }*/
-}
-
 function sendPittSchedule() {
-  
+  // get stops
   let stop = settingsStorage.getItem(FAVORITE_STOP_SETTING);
   if (stop) {
     try {
       stop = JSON.parse(stop);
     }
     catch (e) {
-      console.log("error parsing setting value: " + e);
+      console.log("error parsing stop setting value: " + e);
     }
   }
  
@@ -83,8 +63,31 @@ function sendPittSchedule() {
   }
   console.log(stop);
   
+  // get routes
+  let route = settingsStorage.getItem(FAVORITE_ROUTE_SETTING);
+  if (route) {
+    try {
+      route = JSON.parse(route);
+    }
+    catch (e) {
+      console.log("error parsing route setting value: " + e);
+    }
+  }
+ 
+  if (!route || typeof(route) !== "object" || route.length < 1 || typeof(route[0]) !== "object") {
+    route = ROUTES;
+  }
+  else {
+    let temp = "";
+    route.forEach(r => {temp += "," + r.name});
+    
+    route = temp.substring(1);
+  }
+  console.log(route);
+  
+  
   let pittApi = new PittAPI();
-  pittApi.realTimeDepartures(stop, ROUTES).then(function(departures) {
+  pittApi.realTimeDepartures(stop, route).then(function(departures) {
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
       console.log(departures);
       // Limit results to the number of tiles available in firmware
