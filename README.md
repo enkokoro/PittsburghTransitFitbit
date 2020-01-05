@@ -12,8 +12,4 @@ Future plans to include:
 
 Screenshots:
 
-![Watch Display](link-to-image)
-
-![Companion Settings Page](link-to-image)
-
-
+<img src="images/watch.PNG" align="left" width="250"/><img src="images/companion.PNG" align="right" width="250"/>
