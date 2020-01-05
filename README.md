@@ -1,14 +1,16 @@
 # Pittsburgh Transit on Fitbit
 Transit-like app for Fitbit
 
-Adapted from https://github.com/Fitbit/sdk-bart
+Select favorite bus stops and routes on the companion page. If location permission is available, Fitbit watch app will list stops by proximity and time of next bus.
 
-BusTime Port Authority API http://realtime.portauthority.org/bustime/apidoc/docs/DeveloperAPIGuide3_0.pdf
+Adapted from Fitbit OS tutorial: https://github.com/Fitbit/sdk-bart
 
-Currently only supports limited number of stops. 
+BusTime Port Authority API: http://realtime.portauthority.org/bustime/apidoc/docs/DeveloperAPIGuide3_0.pdf
+
+Currently only supports limited number of default stops. 
 
 Future plans to include:
-- support for selecting different default stops and default routes
+- support for selecting different default stops
 
 Screenshots:
 
